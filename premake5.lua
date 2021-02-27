@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir.GLFW = "Engine/vendor/GLFW/include"
 IncludeDir.Glad = "Engine/vendor/Glad/include"
 IncludeDir.ImGui = "Engine/vendor/imgui"
+IncludeDir.glm = "Engine/vendor/glm"
 
 include "Engine/vendor/GLFW"
 include "Engine/vendor/Glad"
@@ -36,7 +37,9 @@ project "Engine"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
     }
 
     includedirs
@@ -45,7 +48,8 @@ project "Engine"
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -105,7 +109,9 @@ project "Sandbox"
     includedirs
     {
         "Engine/vendor/spdlog/include",
-        "Engine/src"
+        "Engine/src",
+        "Engine/vendor",
+        "%{IncludeDir.glm}"
     }
     
     links
@@ -120,6 +126,7 @@ project "Sandbox"
         defines
         {
             "NG_PLATFORM_WINDOWS",
+            "GLFW_INCLUDE_NONE"
         }
         
     filter "configurations:Debug"
